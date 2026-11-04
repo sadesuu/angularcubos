@@ -1,74 +1,91 @@
 <nav class="border-b border-slate-200 bg-white shadow-sm" aria-label="Navegación principal">
   <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-    <a
-      href="/"
-      class="text-xl font-bold tracking-tight text-slate-900 transition hover:text-indigo-600"
-      aria-label="CuboManía, inicio"
-    >
+    <a routerLink="/" class="text-xl font-bold tracking-tight text-slate-900 transition hover:text-indigo-600"
+      aria-label="CuboManía, inicio">
       Cubo<span class="text-indigo-600">Manía</span>
     </a>
 
     <div class="flex items-center gap-2 sm:gap-6">
-      <a
-        href="/"
-        class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-indigo-600"
-      >
+      <a routerLink="/"
+        class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-indigo-600">
         Home
       </a>
 
       <div class="relative">
-        <button
-          type="button"
+        <button type="button"
           class="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-indigo-600"
-          aria-haspopup="true"
-          [attr.aria-expanded]="menuAbierto"
-          (click)="alternarMenu()"
-        >
+          aria-haspopup="true" [attr.aria-expanded]="menuAbierto" (click)="alternarMenu()">
           Marcas
-          <svg
-            class="h-4 w-4 transition-transform"
-            [class.rotate-180]="menuAbierto"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.168l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" />
+          <svg class="h-4 w-4 transition-transform" [class.rotate-180]="menuAbierto" viewBox="0 0 20 20"
+            fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.168l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z"
+              clip-rule="evenodd" />
           </svg>
         </button>
 
         @if (menuAbierto) {
-          <div
-            class="absolute right-0 z-10 mt-2 w-48 rounded-lg border border-slate-200 bg-white py-2 shadow-lg"
-            role="menu"
-          >
-            @for (marca of marcas; track marca) {
-              <a
-                [routerLink]="['/cubo', marca]"
-                class="block px-4 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-                role="menuitem"
-                (click)="cerrarMenu()"
-              >
-                {{ marca }}
-              </a>
-            }
-          </div>
+        <div class="absolute right-0 z-10 mt-2 w-48 rounded-lg border border-slate-200 bg-white py-2 shadow-lg"
+          role="menu">
+          @for (marca of marcas; track marca) {
+          <a [routerLink]="['/cubo', marca]"
+            class="block px-4 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
+            role="menuitem" (click)="cerrarMenu()">
+            {{ marca }}
+          </a>
+          }
+        </div>
         }
       </div>
 
-      @if (true) {
-        <a
-          href="/perfil"
-          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
-        >
+      @if (usuarioLogeado) {
+      <div class="relative">
+        <button type="button"
+          class="flex items-center gap-1 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+          aria-haspopup="true" [attr.aria-expanded]="perfilMenuAbierto" (click)="alternarPerfilMenu()">
           Mi perfil
-        </a>
+          <svg class="h-4 w-4 transition-transform" [class.rotate-180]="menuAbierto" viewBox="0 0 20 20"
+            fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.168l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        @if (perfilMenuAbierto) {
+        <div class="absolute right-0 z-10 mt-2 w-48 rounded-lg border border-slate-200 bg-white py-2 shadow-lg"
+          role="menu">
+          <a routerLink="/perfil"
+            class="block px-4 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
+            role="menuitem" (click)="cerrarPerfilMenu()">
+            Mi perfil
+          </a>
+          <a routerLink="/compras"
+            class="block px-4 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
+            role="menuitem" (click)="cerrarPerfilMenu()">
+            Mis compras
+          </a>
+          <a routerLink="/realizar-compra"
+            class="block px-4 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
+            role="menuitem" (click)="cerrarPerfilMenu()">
+            Realizar compra
+          </a>
+        </div>
+        }
+      </div>
       } @else {
-        <a
-          href="/login"
-          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
-        >
-          Iniciar sesión
-        </a>
+      <a routerLink="/login"
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700">
+        Iniciar sesión
+      </a>
+      }
+
+      @if (usuarioLogeado) {
+      <button type="button"
+        class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-indigo-600"
+        (click)="cerrarSesion()">
+        Cerrar sesión
+      </button>
       }
     </div>
   </div>

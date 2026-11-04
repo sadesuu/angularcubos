@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Cubo } from '../../models/Cubo';
 import { ServiceCubos } from '../../services/serviceCubos';
 
@@ -9,20 +9,28 @@ import { ServiceCubos } from '../../services/serviceCubos';
   templateUrl: './menu-component.html',
 })
 export class MenuComponent implements OnInit{
-  public marcas: string[] = [];
+  public marcas!: Array<string>;
   public menuAbierto = false;
+  public perfilMenuAbierto = false;
+  public usuarioLogeado = !!sessionStorage.getItem('TOKEN');
 
   constructor(
     private _service: ServiceCubos,
+    private _cdr : ChangeDetectorRef
   ){}
 
-  async loadCubos():Promise<void>{
-    const cubos = await this._service.loadCubos();
-    this.marcas = [...new Set(cubos.map((cubo: Cubo) => cubo.marca))];
+  async loadMarcas():Promise<void>{
+    this.marcas = await this._service.loadMarcas()
   }
 
+
   async ngOnInit(): Promise<void> {
-    await this.loadCubos()
+    await this.loadMarcas();
+  }
+
+  cerrarSesion(): void {
+    sessionStorage.removeItem('TOKEN');
+    this.usuarioLogeado = false;
   }
 
   alternarMenu(): void {
@@ -31,5 +39,13 @@ export class MenuComponent implements OnInit{
 
   cerrarMenu(): void {
     this.menuAbierto = false;
+  }
+
+  alternarPerfilMenu(): void {
+    this.perfilMenuAbierto = !this.perfilMenuAbierto;
+  }
+
+  cerrarPerfilMenu(): void {
+    this.perfilMenuAbierto = false;
   }
 }

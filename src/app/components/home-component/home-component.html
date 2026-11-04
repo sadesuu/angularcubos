@@ -7,6 +7,9 @@
     </p>
   </div>
 
+
+  <app-favorito-component [cubo]="cuboFavorito"></app-favorito-component>
+
   @if (arrayCubos?.length) {
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       @for (cubo of arrayCubos; track cubo.nombre + cubo.modelo) {
@@ -20,10 +23,30 @@
           </div>
 
           <div class="space-y-4 p-5">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-wider text-indigo-600">{{ cubo.marca }}</p>
-              <h2 class="mt-1 text-lg font-bold text-slate-900">{{ cubo.nombre }}</h2>
-              <p class="text-sm text-slate-500">Modelo {{ cubo.modelo }} · Color {{ cubo.color }}</p>
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-wider text-indigo-600">{{ cubo.marca }}</p>
+                <h2 class="mt-1 text-lg font-bold text-slate-900">{{ cubo.nombre }}</h2>
+                <p class="text-sm text-slate-500">Modelo {{ cubo.modelo }} · Color {{ cubo.color }}</p>
+              </div>
+
+              <button
+                type="button"
+                class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                [class.border-rose-200]="esFavorito(cubo)"
+                [class.bg-rose-50]="esFavorito(cubo)"
+                [class.text-rose-500]="esFavorito(cubo)"
+                [class.border-slate-200]="!esFavorito(cubo)"
+                [class.text-slate-400]="!esFavorito(cubo)"
+                [attr.aria-label]="esFavorito(cubo) ? 'Quitar ' + cubo.nombre + ' de favoritos' : 'Añadir ' + cubo.nombre + ' a favoritos'"
+                [attr.aria-pressed]="esFavorito(cubo)"
+                (click)="seleccionarFavorito(cubo)"
+              >
+                <svg class="h-5 w-5" [attr.fill]="esFavorito(cubo) ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 0 1 6.364 0L12 7.636l1.318-1.318a4.5 4.5 0 1 1 6.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 0 1 0-6.364Z" />
+                </svg>
+              </button>
+              
             </div>
 
             <div class="flex items-center justify-between border-t border-slate-100 pt-4">

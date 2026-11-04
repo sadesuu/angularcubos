@@ -1,16 +1,32 @@
-import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
-import { authGuard } from './auth-guard';
+import { inject, Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, MaybeAsync, GuardResult } from '@angular/router';
+@Injectable()
+export class AuthGuard implements CanActivate {
 
-describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) =>
-    TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+  constructor(private _router: Router){}
+  canActivate(
+    route: ActivatedRouteSnapshot, 
+    state: RouterStateSnapshot
+  ): MaybeAsync<GuardResult> {
+    if(sessionStorage.getItem("TOKEN")){
+      return true
+    }else{
+      return this._router.createUrlTree(['/'], 
+        {queryParams: {returnUrl: state.url}}
+      )
+    }
+  }
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-  });
+}
 
-  it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
-  });
-});
+export const authGuard = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+): GuardResult => {
+  const router = inject(Router);
+  return sessionStorage.getItem('TOKEN')
+    ? true
+    : router.createUrlTree(['/login'], {
+        queryParams: { returnUrl: state.url },
+      });
+};

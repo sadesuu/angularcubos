@@ -32,4 +32,9 @@ export class ServiceCubos{
         return firstValueFrom(this._http.get<Cubo[]>(this.url + req));
         
     }
+
+    async loadMarcas():Promise<string[]>{
+        const req = 'api/Cubos/Marcas'
+        return firstValueFrom(this._http.get<string[]>(this.url + req))
+    }
 }

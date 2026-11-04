@@ -1,1 +1,23 @@
-<p>favorito-component works!</p>
+@if (cubo) {
+  <section class="favorite-section">
+    <h1>Mi cubo favorito:</h1>
+
+    <article class="favorite-card">
+      <div class="favorite-image-container">
+        <img [src]="cubo.imagen" [alt]="cubo.nombre" class="favorite-image">
+      </div>
+
+      <div class="favorite-content">
+        <p class="favorite-brand">{{ cubo.marca }}</p>
+        <h2>{{ cubo.nombre }}</h2>
+        <p class="favorite-model">Modelo {{ cubo.modelo }} · Color {{ cubo.color }}</p>
+        <p class="favorite-price">{{ cubo.precio | currency: 'EUR' }}</p>
+      </div>
+    </article>
+  </section>
+} @else {
+  <section class="favorite-section">
+    <h1>Mi cubo favorito:</h1>
+    <p class="empty-favorite">No hay cubo favorito seleccionado.</p>
+  </section>
+}
