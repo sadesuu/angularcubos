@@ -1,1 +1,45 @@
-<p>home-component works!</p>
+<section class="space-y-8">
+  <div class="space-y-2">
+    <p class="text-sm font-semibold uppercase tracking-widest text-indigo-600">Nuestra colección</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Descubre tu próximo cubo</h1>
+    <p class="max-w-2xl text-slate-600">
+      Explora nuestra selección de cubos y encuentra el modelo perfecto para ti.
+    </p>
+  </div>
+
+  @if (arrayCubos?.length) {
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      @for (cubo of arrayCubos; track cubo.nombre + cubo.modelo) {
+        <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+          <div class="flex h-56 items-center justify-center bg-slate-50 p-6">
+            <img
+              [src]="cubo.imagen"
+              [alt]="cubo.nombre"
+              class="h-full w-full object-contain transition duration-300 group-hover:scale-105"
+            />
+          </div>
+
+          <div class="space-y-4 p-5">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-indigo-600">{{ cubo.marca }}</p>
+              <h2 class="mt-1 text-lg font-bold text-slate-900">{{ cubo.nombre }}</h2>
+              <p class="text-sm text-slate-500">Modelo {{ cubo.modelo }} · Color {{ cubo.color }}</p>
+            </div>
+
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xl font-bold text-slate-900">{{ cubo.precio | currency: 'EUR' }}</span>
+              <span class="flex items-center gap-1 text-sm font-medium text-slate-600" [attr.aria-label]="'Valoración: ' + cubo.valoracion + ' de 5'">
+                <span class="text-amber-400">★</span>
+                {{ cubo.valoracion }}/5
+              </span>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-16 text-center">
+      <p class="text-slate-600">Cargando cubos...</p>
+    </div>
+  }
+</section>
