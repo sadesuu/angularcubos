@@ -7,7 +7,9 @@ import {
   MaybeAsync,
   GuardResult,
 } from '@angular/router';
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthGuard implements CanActivate {
   constructor(private _router: Router) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {

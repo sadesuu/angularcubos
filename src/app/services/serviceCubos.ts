@@ -1,8 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpContext } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Cubo } from "../models/Cubo";
 import { environment } from "../../environments/environment.development";
 import { firstValueFrom } from "rxjs";
+import { SKIP_TOKEN } from "../utils/token.context";
 @Injectable({
     providedIn: "root",
 })
@@ -20,7 +21,9 @@ export class ServiceCubos{
         let req = 'api/Cubos'
         if (!this.cubosRequest) {
             this.cubosRequest = firstValueFrom(
-                this._http.get<Cubo[]>(this.url + req),
+                this._http.get<Cubo[]>(this.url + req, {
+                    context: new HttpContext().set(SKIP_TOKEN, true),
+                }),
             );
         }
 

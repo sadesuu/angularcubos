@@ -6,7 +6,7 @@ import { FavoritoComponent } from './components/favorito-component/favorito-comp
 import { LoginComponent } from './components/login-component/login-component';
 import { RegisterComponent } from './components/register-component/register-component';
 import { PerfilComponent } from './components/perfil-component/perfil-component';
-import { AuthGuard } from './guards/auth-guard';
+import { authGuard } from './guards/auth-guard';
 import { MisComprasComponent } from './components/mis-compras-component/mis-compras-component';
 import { RealizarComprasComponent } from './components/realizar-compras-component/realizar-compras-component';
 
@@ -16,9 +16,9 @@ const routes: Routes = [
   { path: 'favorito', component: FavoritoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
-  { path: 'compras', component: MisComprasComponent, canActivate: [AuthGuard] },
-  { path: 'realizarcompra', component: RealizarComprasComponent, canActivate: [AuthGuard] },
+  { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
+  { path: 'compras', component: MisComprasComponent, canActivate: [authGuard] },
+  { path: 'realizar-compra', component: RealizarComprasComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

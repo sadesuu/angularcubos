@@ -1,1 +1,31 @@
-<p>mis-compras-component works!</p>
+<section class="space-y-6">
+  <div class="flex items-end justify-between gap-4">
+    <div>
+    <p class="text-sm font-semibold uppercase tracking-widest text-indigo-600">Cuenta</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Mis compras</h1>
+    </div>
+    <button
+      type="button"
+      class="no-print rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      (click)="generarDocumento()"
+    >
+      Imprimir PDF
+    </button>
+  </div>
+
+  @if (compras !=null) {
+    <div class="grid gap-4">
+      @for (compra of compras; track compra.idPedido) {
+        <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p class="text-sm text-slate-500">Pedido #{{ compra.idPedido }}</p>
+          <p class="mt-1 font-semibold text-slate-900">Cubo #{{ compra.idCubo }}</p>
+          <p class="mt-2 text-sm text-slate-600">
+            {{ compra.fechaPedido | date: 'dd/MM/yyyy HH:mm' }}
+          </p>
+        </article>
+      }
+    </div>
+  } @else {
+    <p class="text-slate-600">No tienes compras realizadas.</p>
+  }
+</section>

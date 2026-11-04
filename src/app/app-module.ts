@@ -1,6 +1,6 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -13,6 +13,7 @@ import { FavoritoComponent } from './components/favorito-component/favorito-comp
 import { PerfilComponent } from './components/perfil-component/perfil-component';
 import { MisComprasComponent } from './components/mis-compras-component/mis-compras-component';
 import { RealizarComprasComponent } from './components/realizar-compras-component/realizar-compras-component';
+import { authInterceptor } from './interceptor/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,11 @@ import { RealizarComprasComponent } from './components/realizar-compras-componen
     MisComprasComponent,
     RealizarComprasComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
-  providers: [provideBrowserGlobalErrorListeners()],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptors([authInterceptor])),
+  ],
   bootstrap: [App],
 })
 export class AppModule {}

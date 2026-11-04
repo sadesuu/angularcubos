@@ -57,7 +57,7 @@
           role="menu">
           <a routerLink="/perfil"
             class="block px-4 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-            role="menuitem" (click)="cerrarPerfilMenu()">
+            role="menuitem" routerLink="/perfil" (click)="cerrarPerfilMenu()">
             Mi perfil
           </a>
           <a routerLink="/compras"
@@ -67,7 +67,7 @@
           </a>
           <a routerLink="/realizar-compra"
             class="block px-4 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700"
-            role="menuitem" (click)="cerrarPerfilMenu()">
+            role="menuitem"  (click)="cerrarPerfilMenu()">
             Realizar compra
           </a>
         </div>

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Cubo } from '../../models/Cubo';
 import { ServiceCubos } from '../../services/serviceCubos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-component',
@@ -16,7 +17,8 @@ export class MenuComponent implements OnInit{
 
   constructor(
     private _service: ServiceCubos,
-    private _cdr : ChangeDetectorRef
+    private _cdr : ChangeDetectorRef,
+    private _routter: Router
   ){}
 
   async loadMarcas():Promise<void>{
@@ -31,6 +33,7 @@ export class MenuComponent implements OnInit{
   cerrarSesion(): void {
     sessionStorage.removeItem('TOKEN');
     this.usuarioLogeado = false;
+    this._routter.navigate(['/login'])
   }
 
   alternarMenu(): void {
@@ -39,6 +42,7 @@ export class MenuComponent implements OnInit{
 
   cerrarMenu(): void {
     this.menuAbierto = false;
+
   }
 
   alternarPerfilMenu(): void {

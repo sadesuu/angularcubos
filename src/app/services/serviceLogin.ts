@@ -35,4 +35,17 @@ export class ServiceLogin {
       }),
     );
   }
+
+  async getPerfilUserAsync(): Promise<any> {
+    let request = 'api/Manage/PerfilUsuario';
+    const token = sessionStorage.getItem('TOKEN');
+    const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : undefined;
+
+    return firstValueFrom(
+      this._http.get(this.url + request, {
+        headers,
+        context: new HttpContext().set(SKIP_TOKEN, false),
+      }),
+    );
+  }
 }

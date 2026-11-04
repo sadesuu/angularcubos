@@ -1,5 +1,6 @@
 export class Cubo{
     constructor(
+   public idCubo: number,
    public nombre: string,
    public modelo: string,
    public marca: string,
